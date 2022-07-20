@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormGroup, Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -27,9 +28,24 @@ miFormulario!:FormGroup
    const {nombre,email,password} = this.miFormulario.value
    this.authService.crearUsuario(nombre,email,password).
    then(credenciales=>{
+    Swal.fire({
+      title: 'Espere un momento',
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        
+      },
+      
+    })
     console.log(credenciales)
+    Swal.close()
     this.router.navigate(['/'])
-   }).catch(err=> console.error(err))
+   }).catch(err => Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: err.message
+    
+  }))
   }
 
 }
