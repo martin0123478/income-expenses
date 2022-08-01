@@ -29,7 +29,7 @@ uiSubscription!:Subscription
     })
    this.uiSubscription= this.store.select('ui').subscribe(ui => {
       this.cargando = ui.isLoading
-      console.log('cargando')
+      
     })
   }
 
@@ -50,7 +50,7 @@ uiSubscription!:Subscription
 //   },
   
 // })
-      console.log(data)
+      
       // Swal.close()
       this.store.dispatch(stopLoading())
       this.router.navigateByUrl('/')
